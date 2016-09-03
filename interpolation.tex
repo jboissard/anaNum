@@ -1,0 +1,154 @@
+\chapter{Interpolation}
+\section{Position du problème}
+Soit $n \geq 0$ un nombre entier. Etant donnés $n + 1$ points distincts $x_0 , x_1, \dots,x_n$ 
+et $n + 1$ valeurs $y_0, y_1,\dots, y_n$, on cherche un polynôme $p$ de degré $n$, tel que
+\begin{eqnarray}
+	p(x)=y_j&0\leq j\leq n
+\end{eqnarray}
+Dans le cas affirmatif, on note $p = \Pi_n$ et on appelle $\Pi_n$ le polynôme 
+d’interpolation aux points $x_j$, $j = 0, \dots , n.$ 
+
+Soit $f \in C^0(I)$ et $x_0 ,\dots , x_n \in I$ . Si comme valeurs $y_j$ on prend $y_j = f (x_j)$, $0 \leq j \leq n$, alors le polynôme d’interpolation $\Pi_n(x)$ est noté $\Pi_n f(x)$ et est appelé l’interpolant de $f$ aux points $x_0,\dots, x_n$.
+
+\section{Base de Lagrange}
+On considère les polynômes $\varphi_k, k = 0, \dots , n$ de degré $n$ tels que 
+\begin{eqnarray*}
+	\varphi_k (x_j) = \delta_{jk},& k, j = 0, \dots , n, 
+\end{eqnarray*}
+où $\delta_{jk}= 1$ si $j=k$ et $\delta_{jk}= 0$ si $j \neq k$. Explicitement, on a
+\begin{eqnarray}
+	\varphi_k(x)=\Pi_{j=0,j\neq k}^n\frac{(x-x_j)}{(x_k-x_j)}.
+\end{eqnarray}
+Le polynôme d'interpolation $Pi_n$ des valeurs $y_j$ aux points $x_j, j=0,\dots,n$, s'écrit
+\begin{eqnarray}
+	\Pi_n=\sum_{k=0}^{n}y_k\varphi_k(x),
+\end{eqnarray}
+car il vérifie $\Pi_n(x_j)=\sum_{k=0}^ny_k\varphi_k(x_j)=y_j$.
+
+Par conséquent on aura
+\begin{eqnarray}
+	\Pi_nf(x)=\sum_{k=0}^nf(x_k)\varphi_k(x).
+\end{eqnarray}
+
+\section{Interpolation d'une fonction régulière}
+\textbf{Théorème (Erreur d'interpolation)}
+Soient $x_0,x_1,\dots,x_n, n+1$ noeuds équirépartis dans $I=[a,b]$ et soit $f\in C^{n+1}(I)$. Alors, on a
+\begin{eqnarray}
+	E_n(f)=\max_{x\in I}|f(x)-\Pi_nf(x)|\leq\frac{1}{4(n+1)}\left(\frac{b-a}{n}\right)^{n+1}\max_{x\in I}|f^{(n+1)}(x)|.
+\end{eqnarray}
+
+
+\section{Interpolation par intervalles}
+Soient $x_0 = a < x_1 < \dots < x_N = b$ des points qui divisent l’intervalle $I = [a, b]$ 
+dans une réunion d’intervalles $I_i= [x_i, x_{i+1}]$ de longueur $H$ où $H=\frac{b-a}{N}$.
+
+Sur chaque sous-intervalle $I_i$ on interpole $f_{|I_i}$
+par un polynôme de degré 1. Le polynôme par morceaux qu’on obtient est noté $\Pi_1^Hf(x)$, et on a:
+\begin{eqnarray}
+	\Pi_1^Hf(x)=f(x_i)+\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i}(x-x_i)&x\in I_i.
+\end{eqnarray}
+
+\textbf{Théorème} 
+Si $f \in C^2(I)$, ($I = [x_0 , x_N]$) alors l'erreur est donnée par (pour $n\geq1$)
+\begin{eqnarray}
+	E_n^H(f)\leq\frac{H^{n+1}}{4(n+1)}\max_{x\in I}|f^{(n+1)}(x)|.
+\end{eqnarray}
+\section{Approximation au sens des moindres carrés}
+\textbf{Définition} On appelle polynôme aux moindres carrés de degré $m$,
+$\tilde f_m$ 
+le polynôme de degré m tel que
+\begin{eqnarray}
+	\sum_{i=0}^n|y_i-\tilde f_m(x_i)|^2\leq\sum_{i=0}^{n}|y_i-p_m(x_i)|^2&\forall p_m(x)\in\mathbb P_m
+\end{eqnarray}
+Lorsque $y_i = f(x_i)$ ($f$ étant une fonction continue) alors 
+$\tilde f_m$
+est dit l’approximation de $f$ au sens des moindres carrés.
+
+Autrement dit, le polynôme aux moindres carrés est le polynôme de degré $m$ 
+qui, parmi tous les polynômes de degré $m$, minimise la distance des données. 
+Si on note 
+$\tilde f_m(x) = a_0 + a_1x + a_2x^2 + \dots + a_mx^m$, et on définit la fonction
+\begin{eqnarray}
+	\Phi(a_0,a_1,\dots,a_m)=\sum_{i=0}^n[y_i-(a_0+a_1x_i + a_2 x_i^2 + \dots + a_mx_i^m)]^2
+\end{eqnarray}
+alors les coefficients du polynôme aux moindres carrés peuvent être 
+déterminés par les relations
+\begin{eqnarray}
+	\frac{\partial\Phi}{\partial\alpha_k}=0,&0\leq k\leq m
+\end{eqnarray}
+ce qui nous donne $m + 1$ relations linéaires entre les $a_k$.
+
+En général, on observe que si pour calculer le polynôme interpolant aux moindres carrés 
+$\tilde f_m(x)$
+on impose les conditions d’interpolation
+$\tilde f_m(x_i) = y_i$ 
+pour $i = 0, \dots, n$, 
+alors on trouve le système linéaire 
+$Ba = \tilde y$, 
+où $B$ est la matrice de dimension 
+$(n + 1) \times (m + 1)$
+\begin{eqnarray*}
+	B=
+	\begin{pmatrix}
+		1 & x_0 & \cdots & x_0^m
+		\\
+		1 & x_1 & \cdots & x_1^m
+		\\
+		\vdots && & \vdots
+		\\
+		1 & x_n & \cdots & x_n^m
+	\end{pmatrix}
+\end{eqnarray*}
+Puisque $m < n$ le système est surdéterminé, c’est-à-dire que le nombre de lignes est plus grand 
+que le nombre de colonnes. Donc on ne peut pas résoudre ce système de façon classique, mais on 
+doit le résoudre au sens des moindres carrés, en considérant:
+\begin{eqnarray}
+	B^TBa=B^T\tilde y.
+\end{eqnarray}
+De cette façon on trouve le système linéaire 
+$Aa = y$ (avec $A = B^TB$ et $y = B^T\tilde y$), dit système 
+d’équations normales. On peut montrer que les équations normales sont équivalentes au système.
+\section{Interpolation par fonction splines}
+Soient $a = x_0 < x_1 < \dots < x_n = b$ des points qui divisent l’intervalle $I = [a, b]$
+dans une réunion d’intervalles $I_i = [x_i , x_{i+1}].$
+
+\textbf{Définition.} On appelle spline cubique interpolant $f$ une fonction $s_3$ qui 
+satisfait 
+\begin{enumerate}
+	\item $s_{3|_{I_i}}\in\mathbb P_3$ pour tout $i=0,\dots,n-1$, $\mathbb P_3$ étant l'ensemble des polynômes de degré 3,
+	\item $s_3(x_i)=f(x_i)$ pour tout $i=0,\dots,n$,
+	\item $s_3\in C^2([a,b])$.
+\end{enumerate}
+
+Cela revient à vérifier les conditions suivantes (on indique par 
+$s_3(xi^-)$ la limite à gauche de $s_3$ au point $x_i$ 
+et par 
+$s_3(x_i^+)$ la limite à droite) :
+\begin{eqnarray*}
+s_3(x_i^-)=f(x_i)&1\leq i\leq n-1,\\
+s_3(x_i^+)=f(x_i)&1\leq i\leq n-1,\\
+s_3(x_0)=f(x_0),\\
+s_3(x_n)=f(x_n),\\
+s'_3(x_i^-)=s'_3(x_i^+)&1\leq i\leq n-1,\\
+s''_3(x_i^-)=s''_3(x_i^+)&1\leq i\leq n-1,
+\end{eqnarray*}
+c’est-à-dire $2(n-1) + 2 + 2(n- 1) = 4n-2$ conditions. 
+
+Il faut trouver $4n$ inconnues (qui sont les 4 coefficients de chacune des $n$ 
+restrictions $s_{3|_{I_i}}$, $i=0,\dots,n-1$) et on dispose de $4n-2$ relations. 
+On rajoute alors 2 conditions supplémentaires à vérifier.
+\begin{itemize}
+	\item Si l'on impose
+	\begin{eqnarray*}
+		s''_3(x_0^+)=0\text{ et }s''_3(x_n^-)=0
+	\end{eqnarray*}
+	alors la spline $s_3$ est complètement déterminée et s’appelle 
+	\emph{spline naturelle}.
+	
+	\item Une autre possibilité est d’imposer la continuité des dérivées troisièmes 
+	dans les noeuds $x_2$ et $x_{n-1}$ , c’est à dire:
+	\begin{eqnarray*}
+		s'''_3(x_2^-)=s'''_3(x_2^+)\text{ et }s'''_3(x_{n-1}^-)=s'''_3(x_{n-1}^+)
+	\end{eqnarray*}
+	dans ce cas elle s'appelle \emph{not-a-knot}.
+\end{itemize}

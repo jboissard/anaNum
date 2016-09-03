@@ -1,0 +1,117 @@
+\chapter{Intégration numérique}
+\section{Formule d'intégrations simples}
+Soit $f :[a,b] \rightarrow\mathbb R$ une fonction continue donnée sur un intervalle $[a,b]$. On désire calculer numériquement la quantité : 
+\begin{eqnarray}
+	I(f)=\int_a^b f(x)\,dx	
+\end{eqnarray}
+On considère les formules d’intégrations simples suivantes : 
+\begin{enumerate}
+	\item Formule du rectangle :
+	\begin{eqnarray}
+		I_{mp}(f)=(b-a)f(\frac{a+b}{2})
+	\end{eqnarray}
+	\item Formule du trapèze:
+	\begin{eqnarray}
+		I_t(f)=(b-a)\frac{f(a)+f(b)}{2}
+	\end{eqnarray}
+	\item Formule de Simpson:
+	\begin{eqnarray}
+		I_s(f)=\frac{b-a}{6}\left[f(a)+4f(\frac{a+b}{2})+f(b)\right]
+	\end{eqnarray}
+\end{enumerate}
+
+\section{Formules d'intégrations composites}
+On va considerer les $M$ sous-intervalles $I_k = [x_{k-1},x_k]$, $k=1,\dots,M$, 
+où 
+$x_k = a + kH$ et $H = (b - a)/M$ . Comme on a 
+\begin{eqnarray}
+	I(f)=\sum_{K=1}^M\int_{I_k}f(x)\,dx
+\end{eqnarray}
+sur chaque sous-intervalle $I_k$ on peut calculer une approximation de l’intégrale 
+exacte de $f$ avec l’intégrale d’un polynôme $f$ approchant $\overline f$ sur $I_k$, c.-à.d.: 
+\begin{eqnarray}
+	I (f ) \text{ approchée par } \sum_{K=1}^M\int_{I_k}f(x)\,dx=\int_a^b\Pi_n^Hf(x)\,dx.
+\end{eqnarray}
+
+\subsection{Formules d'intégration composite du rectangle}
+Cette formule est obtenue en remplaçant, sur chaque sous-intervalle $I_k$, la 
+fonction $f$ par un polynôme constant $\Pi_of$ égal à la valeur de $f$ au milieu de $I_k$: on obtient la formule composite du rectangle (ou du 
+point milieu) 
+\begin{eqnarray}
+	I_{pm}^c(f)=H\sum_{k=1}^Mf(\overline x_k),
+\end{eqnarray}
+où $\overline x_k=\frac{x_{k-1}+x_k}{2}$
+
+\subsection{Formules d'intégration composite du trapèze}
+
+Si sur chaque intervalle $I_k$ on remplace $f$ par le polynôme d’interpolation 
+$\overline f = \Pi_1 f$ de degré 1 aux noeuds $x_{k-1}$ et $x_k$, on obtient la formule composite du 
+trapèze: 
+\begin{eqnarray}
+	I_t^c(f)=\frac{H}{2}\sum_{k=1}^{M}\left[f(x_k)+f(x_{k-1})\right]=\frac{H}{2}[f(a)+f(b)]+H\sum_{k=1}^{M-1}f(x_k).
+\end{eqnarray}
+
+\subsection{Formules d'intégration composite de Simpson}
+
+La formule de Simpson est obtenue en remplaçant $f$ par son polynôme 
+interpolant composite $\overline f = \Pi_2^H$ de degré 2 entre les noeuds $x_k$. 
+En particulier, $f$ est une fonction continue par morceaux qui sur chaque sous-intervalle $I_k$ est obtenue comme le polynôme interpolant $f$ aux noeuds $x_{k-1}, \overline x_k=\frac{x_{k-1}+x_k}{2}$ et $x_k$.
+
+On obtient donc la formule composite de Simpson: 
+\begin{eqnarray}
+	I_s^c(f)=\frac{H}{6}\sum_{k=1}^M\left[f(x_{k-1})+4f(\overline x_k)+f(x_k)\right]
+\end{eqnarray}
+\section{Erreur d'intégration numérique}
+\begin{enumerate}
+	\item Formule composite du rectangle, si $f$ est dans $C^2([a, b])$, alors
+	\begin{eqnarray}
+		|I(f)-I_{pm}^c(f)|\leq\frac{b-a}{24}H^2\max_{x\in[a,b]}|f''(x)|
+	\end{eqnarray}
+	\item Formule composite du trapèze, si $f$ est dans $C^2([a, b])$, alors
+	\begin{eqnarray}
+		|I(f)-I_{t}^c(f)|\leq\frac{b-a}{12}H^2\max_{x\in[a,b]}|f''(x)|
+	\end{eqnarray}
+	\item Formule composite de Simpson, si $f$ est dans $C^4([a, b])$, alors
+	\begin{eqnarray}
+		|I(f)-I_{s}^c(f)|\leq\frac{b-a}{180\cdot16}H^4\max_{x\in[a,b]}|f^{(4)}(x)|
+	\end{eqnarray}
+
+\end{enumerate}
+Les formules ci-dessus sont des cas particuliers de la \textbf{formule générale de quadrature}
+\begin{eqnarray}
+	I_{approx}(f)=\sum_{k=0}^n\alpha_kf(x_k)
+\end{eqnarray}
+où $x_k$ sont les noeuds de la formule de quadrature, et $\alpha_k$ sont les poids (voir la table 
+suivante).
+\begin{center}
+	
+
+\begin{tabular}{| c | c | c | c |}
+	\hline
+	\emph{Formule} & \emph{Dg. Exact} & $\mathit{x_k}$ & $\mathit{\alpha_k}$
+	\\
+	\hline
+	Rectangle & 1 & $x_0=\frac{1}{2}(a+b)$ & $\alpha_0=b-a$
+	\\
+	\hline
+	Trapèze & 1 & $x_0=a, x_1=b$ & $\alpha_0=\alpha_1=\frac{1}{2}(b-a)$
+	\\
+	\hline
+	Simpson & 3 & $x_0=a, x_1=\frac{1}{2}(a+b), x_2=b$ & $\alpha_0=\alpha_2=\frac{1}{6}(b-a),\alpha_1=\frac{2}{3}(b-a)$\\
+	\hline
+\end{tabular}
+\begin{tabular}{| c || c | c |}
+	\hline
+	\emph{Formule composite} & \emph{Deg. exact} & \emph{Ordre par rapport à H}\\
+	\hline
+	Rectangle & 1 & 2
+	\\
+	\hline
+	Trapèze & 1 & 2
+	\\
+	\hline
+	Simpson & 2 & 4\\
+	\hline
+	
+\end{tabular}
+\end{center}

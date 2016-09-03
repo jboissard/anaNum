@@ -1,0 +1,34 @@
+\documentclass[a4paper]{book}
+
+% Packages
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amsfonts, tikz, fullpage,comment}
+
+% Title
+\title{Analyse Numérique - Résumé}
+\author{Johan Boissard}
+\date\today
+
+% Header & footer
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Analyse Numérique}
+%\chead{Notes de cours du 8 avril 2009}
+\rhead{Johan Boissard}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\input{ODE}
+\input{nonlin}
+\input{syslin2}
+\input{interpolation}
+\input{integration}
+\end{document}

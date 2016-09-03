@@ -1,0 +1,183 @@
+\chapter{Equations différentielles Ordinaires (ODE)}	
+\section{Problème général de Cauchy}
+
+\begin{eqnarray}
+	\begin{cases}
+		y'(t)=f(t,y(t))&t>0
+		\\
+		y(0)=y_0
+	\end{cases}
+\end{eqnarray}
+Un problème de Cauchy peut être 
+\begin{itemize}
+	\item linéaire
+	\item non-linéaire
+\end{itemize}
+
+\section{Dérivées numériques}
+Différence finie \emph{progressive}
+\begin{eqnarray}
+	(Dy)_i^P=\frac{y(t_{i+1})-y(t_i)}{h}&i=0,\dots,n-1
+\end{eqnarray}
+Différence finie \emph{rétrograde}
+\begin{eqnarray}
+	(Dy)_i^R=\frac{y(t_{i})-y(t_{i-1})}{h}&i=0,\dots,n	
+\end{eqnarray}
+Différence finie \emph{centrée}
+\begin{eqnarray}
+	(Dy)_i^C=\frac{y(t_{i+1})-y(t_{i-1})}{2h}&i=0,\dots,n-1	
+\end{eqnarray}
+
+
+\subsection{Erreur commise}
+Il existe pour tout $t$, un $\eta$ entre $t_i$ et $t$, un développement de Taylor
+\begin{eqnarray}
+	y(t)=y(t_i)+y'(t_i)(t-t_i)+\frac{y''(\eta)}{2}(t-t_i)^2
+\end{eqnarray}
+On obtient les \emph{estimations} suivantes
+\begin{enumerate}
+	\item \begin{eqnarray}
+		|y'(t_i)-(Dy)_i^P|\leq Ch,&\text{où}&C=\frac{1}{2}\max_{t\in[t_i,t_{i+1}]}|y''(t)|
+	\end{eqnarray}
+	\item \begin{eqnarray}
+		|y'(t_i)-(Dy)_i^R|\leq Ch,&\text{où}&C=\frac{1}{2}\max_{t\in[t_i,t_{i+1}]}|y''(t)|
+	\end{eqnarray}
+	\item \begin{eqnarray}
+		|y'(t_i)-(Dy)_i^C|\leq Ch^2,&\text{où}&C=\frac{1}{6}\max_{t\in[t_i,t_{i+1}]}|y'''(t)|
+	\end{eqnarray}
+\end{enumerate}
+
+La différence $\tau(h)=|y'(t_i)-(Dy)_i^P|$ est appelée \textbf{erreur de troncature en $t_i$}
+
+On dira que $\tau$ est d'ordre $p>0$, si: $\tau(h)\leq Ch^P$, pour une constante $C>0$, on obtient que 
+\begin{enumerate}
+	\item ordre $p=1$
+	\item ordre $p=1$
+	\item ordre $p=2$
+\end{enumerate}
+
+\section{Méthodes des différences finies}
+\begin{enumerate}
+	\item Euler progressif
+	\begin{eqnarray}
+		\begin{cases}
+			\frac{u_{n+1}-u_n}{h}=f(t_n,u_n)&n=0,1,2,\dots
+			\\
+			u_0=y_0
+		\end{cases}
+	\end{eqnarray}
+	Schéma explicite
+	\item Euler rétrograde
+	\begin{eqnarray}
+	\begin{cases}
+		\frac{u_{n+1}-u_n}{h}=f(t_{n+1},u_{n+1})&n=0,1,2,\dots
+		\\
+		u_0=y_0
+	\end{cases}
+	\end{eqnarray}
+	Schéma implicite
+\end{enumerate}
+
+\section{Conditions de stabilité}
+Le choix du pas de temps $h$ n’est pas arbitraire et doit être choisi judicieusement. On verra plus tard que si $h$ est trop petit, des problèmes de stabilité peuvent survenir.
+
+\subsection{Propriétés de stabilité (absolue)}
+Soit $\lambda<0$, on considère le problème suivant
+\begin{eqnarray}
+	\begin{cases}
+		y'(t)=\lambda y(t)& \forall\mathbb{R}_+
+		\\
+		y
+	\end{cases}
+\end{eqnarray}
+Dont la solution est $y(t)=y_0e^{-\lambda t}$ et $\lim_{t\rightarrow\infty}y(t)=0$
+
+Un schéma de dérivation est dit \textbf{absolument stable} si $\lim_{n\rightarrow\infty}u_n=0$
+
+\begin{enumerate}
+	\item Schéma d'Euler progressif
+	\begin{eqnarray}
+		u_{n+1}=(1+\lambda h)u_n&u_n=(1+\lambda h)^ny_0 &\forall n\geq 0
+	\end{eqnarray}
+	La condition de stabilité est $|1+\lambda h|<1$ d'où $h<\frac{2}{|\lambda|}$
+	\item Schéma d'Euler rétrograde
+	\begin{eqnarray}
+		u_{n+1}=(1+\lambda h)u_n&u_n=(1+\lambda h)^ny_0 &\forall n\geq 0
+	\end{eqnarray}
+	comme $\lim_{n\rightarrow\infty}u_n=0$ ce schéma est \textbf{inconditionellement} stable
+\end{enumerate}
+
+\subsection{Stabilité absolue contrôle les perturbations}
+Considérons le modèle généralisé suivant:
+\begin{eqnarray}
+	\begin{cases}
+		y'(t)=\lambda(t)y(t)+r(t)&t\in(0,\infty)
+		\\
+		y(0)=1
+	\end{cases}
+\end{eqnarray}
+soient $r$ et $\lambda$ des fonctions continues:
+
+$\lambda_{max}\leq\lambda(t)\leq\lambda_{min}$ où $0<\lambda_{min}\leq\lambda_{max}<\infty$
+
+\subsection{Convergence d'Euler progressif}
+La méthode est convergente si $\forall n=1,\dots,N_h$:
+\begin{eqnarray}
+	|u_n-y(t_n)|\leq C(h)&\text{où } C(h)\rightarrow 0 \text{ when } h\rightarrow 0
+\end{eqnarray}
+Si en plus $\exists p>0$, tel que $C(h)=O(h^P)$ alors on parle de méthode \textbf{convergente d'ordre $p$}
+
+\section{Récapitulatif}
+
+\begin{tabular}{| c || c | c | c | c |}
+	\hline
+	\emph{Méthode} & \emph{Explicite/Implicite} & \emph{Pas} & \emph{Stabilité} & \emph{Ordre}
+	\\
+	\hline
+	Euler progressif & Explicite & 1 & Conditionellement & 1
+	\\
+	Euler rétrograde & Implicite & 1 & Inconditionellement & 1
+	\\
+	Crank Nicholson  & Implicite & 1 & Inconditionellement & 2
+	\\
+	Heun & Explicite & 1 & Conditionellement & 2
+	\\
+	Euler modifié & Explicite & 1 & Conditionellement & 2
+	\\
+	\hline
+\end{tabular}
+
+\subsection{Système d'ODE}
+\begin{eqnarray}
+	\mathbf{y'}(t)=A\mathbf{y}(t)+\mathbf{b}(t)&t>0,
+	\\
+	\mathbf{y}(0)=\mathbf{y}_0
+\end{eqnarray}
+$A\in\mathbb R^{pxp}$ et $\mathbf{b}(t)\in\mathbb R^p$ où l'on suppose que $\mathbf{A}$ possède $p$ valeurs propres distinctes $\lambda_j, j=1,\dots,p$
+
+La méthode d'Euler progressif devient
+\begin{eqnarray}
+	\begin{cases}
+		\frac{\mathbf{u}_{n+1}-\mathbf{u}_n}{h}=A\mathbf{u}_n+\mathbf{b}_n&n=0,1,2,\dots
+		\\
+		\mathbf{u}_0=\mathbf{y}_0
+	\end{cases}
+\end{eqnarray}
+
+La méthode d'Euler rétrograde devient
+\begin{eqnarray}
+	\begin{cases}
+		\frac{\mathbf{u}_{n+1}-\mathbf{u}_n}{h}=A\mathbf{u}_{n+1}+\mathbf{b}_{n+1}&n=0,1,2,\dots
+		\\
+		\mathbf{u}_0=\mathbf{y}_0
+	\end{cases}
+\end{eqnarray}
+
+\subsection{Stabilité d'un système d'ODE}
+La méthode d'Euler est \textbf{\emph{stable}} pour autant que la condition suivante soit vérifiée
+\begin{eqnarray}
+	h<\frac{2}{\max_{j=1,\dots,p}|\lambda_j|}=\frac{2}{\rho(A)}
+\end{eqnarray}
+où $\rho(A)$ est le rayon spectral de $A$.
+
+La méthode d'Euler rétrograde est \textbf{\emph{inconditionellement stable}}.

@@ -1,0 +1,74 @@
+%!TEX root = /Users/Johan/Documents/University/NumericalAnalysis/LaTeX/ananum.tex
+\chapter{Equations non linéaires}
+
+\section{Méthode de Dichotomie ou Bissection}
+On construit une suite telle que
+\begin{eqnarray}
+	\lim_{k\rightarrow\infty}x^{(k)}=0
+\end{eqnarray}
+Si il existe $a<b$ avec $f(a)f(b)<0$, alors il existe au moins un zéro dans l'intervalle $[a,b]$
+
+\subsection{Méthode}
+\begin{enumerate}
+	\item on pose $x^{(0)}=\frac{a+b}{2}$
+	\item si $f(x^{(0)})=0$ alors $x^{(0)}$ est le zéro ($\alpha$) cherché
+	\item si $f(x^{(0)})\neq0$
+	\subitem soit $f(x^{(0)})f(a)>0$ et donc $\alpha \in(x^{(0)},b)$, on pose $a=x^{(0)}$
+	\subitem si $f(x^{(0)})f(a)<0$, $\alpha \in(a,x^{(0)})$ et donc on pose $b=x^{(0)}$
+\end{enumerate}
+\section{Méthode de Newton}
+
+\begin{eqnarray}
+	x^{(k+1)}=x^{(k)}-\frac{f(x^{(k)})}{f'(x^{(k)})} & k=0,1,2,\dots
+\end{eqnarray}
+
+\subsection{Convergence de la méthode de Newton}
+
+\section{Critères d'arrêt}
+Un bon critère d'arrêt est le \textbf{contrôle d'incrément}
+\begin{eqnarray}
+	|x^{(k+1)}-x^{(k)}|<\epsilon
+\end{eqnarray}
+où $\epsilon$ est fixé.
+
+Un deuxième critère est celui de \textbf{contrôle des résidus}:
+\begin{eqnarray}
+	|f(x^{(k)})|<\epsilon
+\end{eqnarray}
+
+\section{Méthode du point fixe}
+Un procédé général pour trouver les racines d’une équation non linéaire 
+$f(x)= 0$ consiste en la transformer en un problème équivalent $x-\phi(x) = 0$, 
+où la fonction auxiliaire $\phi : [a, b] \rightarrow\mathbb R$ doit avoir la propriété suivante : 
+$\phi(\alpha)=\alpha$ si et seulement si $f (\alpha) = 0.$ 
+
+Le point $\alpha$ est dit alors point fixe de la fonction $\phi$. Approcher les zéros de $f$ se 
+ramène donc au problème de la détermination des points fixes de $\phi$. 
+Idée : On va construire des suites qui vérifient $x^{(k+1)} = \phi(x^{(k)})$ où $k \geq 0$. En 
+effet, si $x^{(k)}\rightarrow\alpha$ et si $\phi$ est continue dans $[a, b]$, alors la limite $\alpha$ satisfait 
+$\phi(\alpha)=\alpha$
+
+\subsection{Convergence globale}
+soit $\phi : [a, b] \rightarrow\mathbb R$ une fonction continue et différentiable sur $[a, b]$ telle que 
+$\forall x \in [a, b]$
+$\phi(x) \in [a, b]$
+
+Alors il existe au moins un point fixe $\alpha \in[a,b]$ de $\phi$.
+
+En plus, supposons que 
+$\exists K < 1$ tel que $|\phi'(x)| \leq K \forall x \in [a, b].$ 
+Alors 
+\begin{enumerate}
+	\item il existe un unique point fixe $\alpha$ de $\phi$ dans $[a, b]$.
+	\item $\forall x^{(0)} \in [a, b]$, la suite $\{x^{(k)} \}$ définie par $x^{(k+1)} = \phi(x^{(k)})$, $k \geq 0$ converge vers $\alpha$ lorsque $k\rightarrow\infty$
+	\item on a le résultat de convergence suivant: 
+	\begin{eqnarray}
+		| x^{(k+1)} - \alpha |\leq K | x^{(k)} - \alpha |, \forall k \in\mathbb N.
+	\end{eqnarray}
+\end{enumerate} 
+
+\section{Méthode de la corde}
+La méthode de la corde est obtenue en remplacant $f'(x_k)$ par une constante $q$ dans la méthode de Newton, ce qui donne
+\begin{eqnarray}
+	x^{(k+1)}=x^{(k)}-\frac{f(x^k)}{q}&k=0,1,2,\dots
+\end{eqnarray}
